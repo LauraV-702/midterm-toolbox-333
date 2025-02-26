@@ -17,6 +17,16 @@ public class Toolbox {
     if (array == null || index < 0 || index >= array.length) {
       throw new IllegalArgumentException("Array cannot be null and index must be within bounds.");
     }
+    /*
+     for loop, traverse through array
+        array[i] = array[i + 1]
+        array[array.length - 1] = null;
+     */
+
+     for (int i = index; i < array.length - 1; i++) {
+        array[i] = array[i + 1];
+     }
+     array[array.length - 1] = null;
 
 }
 
@@ -33,8 +43,17 @@ public class Toolbox {
     if (array == null || index < 0 || index >= array.length) {
         throw new IllegalArgumentException("Array cannot be null and index must be within bounds.");
     }
+    /*
+     for loop
+        array[i] = array[i - 1];
 
-    // The last element is evicted automatically because the array size remains constant
+        array[index] = value;
+    */
+
+    for (int i = array.length - 1; i > index; i--) {
+        array[i] = array[i - 1];
+    }
+        array[index] = value;
   }
 
   /**
@@ -49,7 +68,14 @@ public class Toolbox {
     if (head == null) {
         throw new IllegalArgumentException("Head cannot be null.");
     }
+    //while loop, the next node isn't null then continue going 
+        //head = head.next;
+        // return head
 
+    while (head.next != null) {
+        head = head.next;
+    }
+    return head;
 }
 
 
@@ -65,7 +91,16 @@ public class Toolbox {
     if (tail == null) {
         throw new IllegalArgumentException("Tail cannot be null.");
     }
+    /*
+     while
+        the next 'tail' doesn't equal null then continue
+        return tail 
+     */
 
+     while(tail.prev != null) {
+        tail = tail.prev;
+     } 
+     return tail;
 }
 
 
@@ -80,6 +115,21 @@ public class Toolbox {
     if (head == null) {
         throw new IllegalArgumentException("Head cannot be null.");
     }
+
+    /*
+    map occurances
+    while using the head
+        occurances.put(head.data, occurances.getOrDefault(head.data, 0) + 1;
+        head = head.next;
+        return occurances;
+     */
+
+     Map<Integer, Integer> occurances = new HashMap<>();
+     while(head != null) {
+        occurances.put(head.data, occurances.getOrDefault(head.data,0) + 1);
+        head = head.next;
+     }
+     return occurances;
   }
   /**
    * Removes a node from a doubly linked list.
@@ -92,6 +142,21 @@ public class Toolbox {
         throw new IllegalArgumentException("Node cannot be null.");
     }
 
+    //if statement
+        //the node.next != null) 
+            //node.next.prev = node.prev;
+
+    //if statement
+        //the node.prev != null
+            //node.prev.next = node.next;
+
+    if (node.next != null) {
+        node.next.prev = node.prev;
+    }
+
+    if (node.prev != null) {
+        node.prev.next = node.next;
+    }
 }
 
   /**
@@ -107,7 +172,19 @@ public class Toolbox {
     if (head == null || n < 0) {
         throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
+    /*
+    while (head != null && n > 0) {
+        head = head.next;
+        n--;
+    } 
+    return head;
+     */
 
+    while (head != null && n > 0) {
+        head = head.next;
+        n--;
+    }
+    return head;
 }
 
   /**
@@ -122,7 +199,8 @@ public class Toolbox {
     if (node == null || newNode == null) {
         throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
-
+    newNode.next = node.next;
+    node.next = newNode;
 }
 
   /**
@@ -143,6 +221,11 @@ public class Toolbox {
     if (queue == null || k < 0) {
         throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }  
+
+    for (int i = 0; i < k; i++) {
+        Integer front = queue.poll();
+        queue.offer(front);
+    }
   }
   /**
    * Checks if a string has balanced parentheses using a stack.
@@ -164,7 +247,20 @@ public class Toolbox {
     if (input == null) {
         throw new IllegalArgumentException("Input string cannot be null.");
     }
-
+    
+    Stack<Character> stack = new Stack<>();
+    for (char c : input.toCharArray()) {
+        if(c == '(') {
+            stack.push(c);
+        }
+        else if(c == ')') {
+            if(stack.isEmpty()) {
+                return false;
+            }
+            stack.pop();
+        }
+        return stack.isEmpty();
+    }
 
   }
 }
