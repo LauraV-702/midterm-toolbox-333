@@ -1,4 +1,4 @@
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
@@ -18,14 +18,6 @@ public class Toolbox {
       throw new IllegalArgumentException("Array cannot be null and index must be within bounds.");
     }
 
-    // Shift elements to the left starting from the given index
-    // This will overwrite the element at the specified index
-    for (int i = index; i < array.length - 1; i++) {
-        array[i] = array[i + 1]; // Move element at i + 1 to position i
-    }
-
-    // Set the last element to null to pad the array after removal
-    array[array.length - 1] = null; // Now the last element is null
 }
 
   /**
@@ -42,17 +34,8 @@ public class Toolbox {
         throw new IllegalArgumentException("Array cannot be null and index must be within bounds.");
     }
 
-    // Shift elements to the right starting from the last element
-    // This will make room for the new element at the specified index
-    for (int i = array.length - 1; i > index; i--) {
-        array[i] = array[i - 1]; // Move element at i-1 to position i
-    }
-
-    // Insert the new value at the specified index
-    array[index] = value;
-
     // The last element is evicted automatically because the array size remains constant
-}
+  }
 
   /**
    * Finds the tail of a singly linked list given the head.
@@ -67,14 +50,6 @@ public class Toolbox {
         throw new IllegalArgumentException("Head cannot be null.");
     }
 
-    // Traverse the list until reaching the last node (tail)
-    SingleNode current = head;
-    while (current.next != null) {
-        current = current.next; // Move to the next node
-    }
-
-    // Once we reach the last node, return it
-    return current;
 }
 
 
@@ -91,14 +66,6 @@ public class Toolbox {
         throw new IllegalArgumentException("Tail cannot be null.");
     }
 
-    // Start at the tail and move backward until we find the head
-    DoubleNode current = tail;
-    while (current.prev != null) {
-        current = current.prev; // Move to the previous node
-    }
-
-    // Once we reach the head, return it
-    return current;
 }
 
 
@@ -113,24 +80,7 @@ public class Toolbox {
     if (head == null) {
         throw new IllegalArgumentException("Head cannot be null.");
     }
-
-    // Initialize a LinkedHashMap to preserve insertion order
-    Map<Integer, Integer> occurrences = new LinkedHashMap<>();
-
-    // Traverse the linked list and update counts in the map
-    SingleNode current = head;
-    while (current != null) {
-        int value = current.data;
-
-        // Update the count in the map
-        occurrences.put(value, occurrences.getOrDefault(value, 0) + 1);
-
-        current = current.next;
-    }
-
-    return occurrences;
-}
-
+  }
   /**
    * Removes a node from a doubly linked list.
    *
@@ -142,18 +92,6 @@ public class Toolbox {
         throw new IllegalArgumentException("Node cannot be null.");
     }
 
-    // If the node has a previous node, adjust its next pointer
-    if (node.prev != null) {
-        node.prev.next = node.next;
-    }
-
-    // If the node has a next node, adjust its previous pointer
-    if (node.next != null) {
-        node.next.prev = node.prev;
-    }
-
-    // In case the node is the head, we would need to adjust the head pointer (handled outside this method)
-    // In case the node is the tail, we would need to adjust the tail pointer (handled outside this method)
 }
 
   /**
@@ -170,18 +108,6 @@ public class Toolbox {
         throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
 
-    // Traverse the list to find the nth node
-    SingleNode current = head;
-    int index = 0;
-
-    // Move through the list until we reach the nth node
-    while (current != null && index < n) {
-        current = current.next;  // Move to the next node
-        index++;  // Increment the index
-    }
-
-    // If we reached the nth node, return it, otherwise return null (if n is out of bounds)
-    return current;
 }
 
   /**
@@ -197,11 +123,6 @@ public class Toolbox {
         throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
 
-    // The new node should point to the current node
-    newNode.next = node.next;
-    
-    // Now update the current node's next pointer to point to the new node
-    node.next = newNode;
 }
 
   /**
@@ -221,22 +142,7 @@ public class Toolbox {
     // Check if the queue is null or if k is negative
     if (queue == null || k < 0) {
         throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
-    }
-
-    int size = queue.size();
-    // If the queue is empty or k is 0, no rotation is needed
-    if (size == 0 || k == 0) {
-        return;
-    }
-
-    // Normalize k to be within the range of the queue size
-    k = k % size;
-    
-    // Rotate the queue by dequeuing the first k elements and enqueuing them back
-    for (int i = 0; i < k; i++) {
-        int front = queue.poll();  // Remove the front element
-        queue.offer(front);        // Add it back to the end of the queue
-    }
+    }  
   }
   /**
    * Checks if a string has balanced parentheses using a stack.
@@ -259,24 +165,6 @@ public class Toolbox {
         throw new IllegalArgumentException("Input string cannot be null.");
     }
 
-    // Create a stack to keep track of opening parentheses
-    Stack<Character> stack = new Stack<>();
 
-    // Traverse each character in the string
-    for (char ch : input.toCharArray()) {
-        if (ch == '(') {
-            // If the character is '(', push it onto the stack
-            stack.push(ch);
-        } else if (ch == ')') {
-            // If the character is ')', check if there's a matching '(' in the stack
-            if (stack.isEmpty()) {
-                return false;  // Unbalanced: No matching '(' for this ')'
-            }
-            stack.pop();  // Pop the matching '(' from the stack
-        }
-    }
-
-    // If the stack is empty, all parentheses are balanced
-    return stack.isEmpty();
   }
 }
