@@ -7,7 +7,11 @@ public class Toolbox {
 
  /**
    * Removes an element from an array of strings at the specified index, padding with nulls at the end.
-   *
+   * 
+   * [e, r, w, d, t]
+   * index = 2
+   *   
+   * [e, r, d, t, null]
    * @param array the array of strings to modify
    * @param index the index of the element to remove
    * @throws IllegalArgumentException if the array is null or the index is out of bounds
@@ -17,6 +21,34 @@ public class Toolbox {
     if (array == null || index < 0 || index >= array.length) {
       throw new IllegalArgumentException("Array cannot be null and index must be within bounds.");
     }
+
+    /*
+     initialize a for loop
+        from the beginning of array til the end the array, moving from left to right
+            first grab the current index and shift their positions 
+        set the last index positon to null
+
+        i = 0
+        arr = [e, r, w, d, t]
+        System.out.println(arr[i + 1]) // r
+        index = 2
+
+
+        [e, r, w, d, t]
+        [e, r, d, t, null]
+
+        i=0
+        i+1 -> 1
+        arr[i+1] -> arr[1] -> 'r'
+
+        i = 0
+        arr[i] = arr[i+1]
+     */
+
+     for (int i = 0; i < array.length - 1; i++) {
+            array[i] = array[i + 1];
+     }
+     array[array.length - 1] = null;
 
 }
 
@@ -143,6 +175,12 @@ public class Toolbox {
 
   /**
    * Finds the nth element in a singly linked list.
+   * 
+   * 7 -> 9-> 4 ->8
+   * 
+   * n = 99
+   * 
+   * 
    *
    * @param head the head node of the singly linked list
    * @param n the index of the element to find (0-based)
@@ -155,6 +193,19 @@ public class Toolbox {
         throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
     /*
+     int index = 0
+     while loop, if head isn't null we want to continue through the nodes, if the index is within nth range also continue
+        //traverse
+        increment the index
+     return head
+     */
+
+     int index = 0;
+     while (head != null && index < n) {
+        head = head.next;
+        index++;
+     }
+     return head;
 }
 
   /**
