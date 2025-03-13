@@ -27,10 +27,7 @@ public class Toolbox {
       once number is found(to be removed), have current position of i be shifted by minus 1
     then add null at the end 
      */
-    for (int i = index; i < array.length - 1; i++) {
-      array[i] = array [i + 1];
-    }
-    array[array.length - 1] = null;
+    
 
 
 
@@ -78,10 +75,7 @@ public class Toolbox {
       we shift it -1, starting from the last value 
      */
 
-    for(int i = array.length - 1; i > index; i--) {
-      array[i] = array[i - 1];
-    }
-    array[index] = value;
+   
     
   }
 
@@ -103,10 +97,7 @@ public class Toolbox {
      return the head
      */
 
-     while (head.next != null) {
-      head = head.next;
-     }
-     return head;    
+         
   }
 
 
@@ -128,10 +119,7 @@ public class Toolbox {
       continue to traverse through 
     return the tail
      */
-    while(tail.prev != null) {
-      tail = tail.prev;
-    }
-    return tail;
+    
   }
 
 
@@ -159,22 +147,6 @@ public class Toolbox {
         throw new IllegalArgumentException("Head cannot be null.");
     }
 
-    Map<Integer, Integer> occurances = new HashMap<>();
-
-    while(head != null) {
-      int data = head.data;
-      if(occurances.containsKey(data)) {
-        int count = occurances.get(data);
-        count++;
-        occurances.put(data, count);
-      }
-
-      else {
-        occurances.put(data, 1)
-      }
-      head = head.next;
-    }    
-    return occurances;
 
     
 
@@ -262,12 +234,7 @@ public class Toolbox {
       then return head
     */
   
-    int index = 0;
-    while (head != null && n > index) {
-      head = head.next; 
-      index++;
-    }
-    return head;
+  
 
 
 
@@ -304,8 +271,6 @@ public class Toolbox {
      then have node point to the newNode
      */
 
-     newNode.next = node.next;
-     node.next = newNode;
      
 
   }
@@ -329,8 +294,6 @@ public class Toolbox {
         throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }  
 
-    int front = queue.poll();
-    queue.offer(front);
     
   }
   /**
@@ -353,19 +316,6 @@ public class Toolbox {
     if (input == null) {
         throw new IllegalArgumentException("Input string cannot be null.");
     }
-    Stack<Character> stack = new Stack<>();
-
-    for (char c : input.toCharArray()) {
-      if (c == '(') {
-        stack.push(c);
-      } 
-      else if(c == ')') {
-        if(stack.isEmpty()) {
-          return false;
-        }
-        stack.pop();
-      }
-    }
-    return stack.isEmpty();
+   
   }
 }
