@@ -22,6 +22,11 @@ public class Toolbox {
       throw new IllegalArgumentException("Array cannot be null and index must be within bounds.");
     }
 
+    for(int i = index; i < array.length - 1; i++) {
+      array[i] = array[i + 1];
+    } 
+    array[array.length -1] = null;
+
     /*
      initialize a for loop
         from the beginning of array til the end the array, moving from left to right
@@ -45,10 +50,6 @@ public class Toolbox {
         arr[i] = arr[i+1]
      */
 
-     for (int i = 0; i < array.length - 1; i++) {
-            array[i] = array[i + 1];
-     }
-     array[array.length - 1] = null;
 
 }
 
@@ -69,9 +70,8 @@ public class Toolbox {
      for loop
       we shift it -1, starting from the last value 
      */
-
-    for(int i = array.length - 1; i > index; i--) {
-      array[i] = array[i - 1];
+    for (int i = array.length; i < index; i++) {
+      array[i] = array[i - 1]; 
     }
     array[index] = value;
   }
@@ -93,11 +93,11 @@ public class Toolbox {
       we traverse, starting from the head, and as long as head next node isn't null just continue til tail
      return the head
      */
-
-     while(head.next != null) {
+    while (head.next != null) {
       head = head.next;
-     }
-     return head;
+    }
+    return head;
+
   }
 
 
@@ -113,7 +113,19 @@ public class Toolbox {
     if (tail == null) {
         throw new IllegalArgumentException("Tail cannot be null.");
     }
-}
+
+    /*
+     while loop tail isn't null, 
+      continue to traverse through 
+    return the tail
+     */
+
+    while(tail.prev != null) {
+      tail = tail.prev;
+    }
+    return tail;
+
+  }
 
 
   /**
@@ -139,6 +151,26 @@ public class Toolbox {
     if (head == null) {
         throw new IllegalArgumentException("Head cannot be null.");
     }
+
+    Map<Integer, Integer> occurances = new HashMap<>();
+
+    while(head != null) {
+      int data = head.data;
+      if(occurances.containsKey(data)) {
+        int count = occurances.get(data);
+        count++;
+        occurances.put(data, count);
+      } 
+      else {
+        occurances.put(data, 1);
+      }
+      head = head.next;
+    }
+    return occurances;
+
+
+
+
     /*
      - Map, occurances
      - while, head is not empty or null 
@@ -148,10 +180,10 @@ public class Toolbox {
      - return occurances
      */
 
-     Map<Integer, Integer> occurances = new HashMap<>();
+    //  Map<Integer, Integer> occurances = new HashMap<>();
 
-     while(head != null) {
-        int data = head.data;
+    //  while(head != null) {
+    //     int data = head.data;
         /*
           * if map contains the data as key:
           *   int count = occurances.get(data)
@@ -166,18 +198,18 @@ public class Toolbox {
           *
           * */
          // occurances.put(data, occurances.getOrDefault(data, 0) + 1);
-        if(occurances.containsKey(data)) {
-            int count = occurances.get(data);
-            count++;
-            occurances.put(data, count);
-        }
-        else {
-            occurances.put(data, 1);
-        }
+    //     if(occurances.containsKey(data)) {
+    //         int count = occurances.get(data);
+    //         count++;
+    //         occurances.put(data, count);
+    //     }
+    //     else {
+    //         occurances.put(data, 1);
+    //     }
         
-        head = head.next;
-     }
-     return occurances;
+    //     head = head.next;
+    //  }
+    //  return occurances;
 
   }
   /**
@@ -190,6 +222,15 @@ public class Toolbox {
     if (node == null) {
         throw new IllegalArgumentException("Node cannot be null.");
     }
+
+    if(node.prev != null) {
+      node.prev.next = node.next;
+    }
+
+    if(node.next != null) {
+      node.next.prev = node.prev;
+    }
+
   }
 
   /**
@@ -211,6 +252,17 @@ public class Toolbox {
     if (head == null || n < 0) {
         throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
+    
+    int index = 0;
+    while (head != null && n > index) {
+      head = head.next;
+      index++;
+    }
+    return head;
+
+
+
+
     /*
      int index = 0
      while loop, if head isn't null we want to continue through the nodes, if the index is within nth range also continue
@@ -219,12 +271,12 @@ public class Toolbox {
      return head
      */
 
-     int index = 0;
-     while (head != null && index < n) {
-        head = head.next;
-        index++;
-     }
-     return head;
+    //  int index = 0;
+    //  while (head != null && index < n) {
+    //     head = head.next;
+    //     index++;
+    //  }
+    //  return head;
 }
 
   /**
@@ -239,7 +291,15 @@ public class Toolbox {
     if (node == null || newNode == null) {
         throw new IllegalArgumentException("Node and newNode cannot be null.");
     }
-}
+    /*
+     have the newNode point to the next node
+     then have node point to the newNode
+     */
+
+      newNode.next = node.next;
+      node.next = newNode;
+
+  }
 
   /**
    * Rotates a queue to the left by the specified number of positions in-place.
@@ -259,6 +319,12 @@ public class Toolbox {
     if (queue == null || k < 0) {
         throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }  
+
+    for (int i = 0; i < k; i++) {
+      int front = queue.poll();
+      queue.offer(front);
+    }
+    
   }
   /**
    * Checks if a string has balanced parentheses using a stack.
@@ -280,6 +346,19 @@ public class Toolbox {
     if (input == null) {
         throw new IllegalArgumentException("Input string cannot be null.");
     }
-    
+    Stack<Character> stack = new Stack<>();
+
+    for (char c : input.toCharArray()) {
+      if(c == '(') {
+        stack.push(c);
+      } 
+      else if (c == ')') {
+        if (stack.isEmpty()) {
+          return false;
+        }
+        stack.pop();
+      }
+    }
+    return stack.isEmpty();
   }
 }
