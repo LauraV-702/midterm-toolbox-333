@@ -22,10 +22,7 @@ public class Toolbox {
       throw new IllegalArgumentException("Array cannot be null and index must be within bounds.");
     }
 
-    for(int i = index; i < array.length - 1; i++) {
-      array[i] = array[i + 1];
-    } 
-    array[array.length -1] = null;
+
 
     /*
      initialize a for loop
@@ -70,10 +67,7 @@ public class Toolbox {
      for loop
       we shift it -1, starting from the last value 
      */
-    for (int i = array.length; i < index; i++) {
-      array[i] = array[i - 1]; 
-    }
-    array[index] = value;
+    
   }
 
   /**
@@ -93,11 +87,7 @@ public class Toolbox {
       we traverse, starting from the head, and as long as head next node isn't null just continue til tail
      return the head
      */
-    while (head.next != null) {
-      head = head.next;
-    }
-    return head;
-
+    
   }
 
 
@@ -120,11 +110,7 @@ public class Toolbox {
     return the tail
      */
 
-    while(tail.prev != null) {
-      tail = tail.prev;
-    }
-    return tail;
-
+    
   }
 
 
@@ -152,22 +138,7 @@ public class Toolbox {
         throw new IllegalArgumentException("Head cannot be null.");
     }
 
-    Map<Integer, Integer> occurances = new HashMap<>();
-
-    while(head != null) {
-      int data = head.data;
-      if(occurances.containsKey(data)) {
-        int count = occurances.get(data);
-        count++;
-        occurances.put(data, count);
-      } 
-      else {
-        occurances.put(data, 1);
-      }
-      head = head.next;
-    }
-    return occurances;
-
+    
 
 
 
@@ -223,14 +194,7 @@ public class Toolbox {
         throw new IllegalArgumentException("Node cannot be null.");
     }
 
-    if(node.prev != null) {
-      node.prev.next = node.next;
-    }
-
-    if(node.next != null) {
-      node.next.prev = node.prev;
-    }
-
+    
   }
 
   /**
@@ -253,12 +217,7 @@ public class Toolbox {
         throw new IllegalArgumentException("Head cannot be null and n cannot be negative.");
     }
     
-    int index = 0;
-    while (head != null && n > index) {
-      head = head.next;
-      index++;
-    }
-    return head;
+  
 
 
 
@@ -296,8 +255,7 @@ public class Toolbox {
      then have node point to the newNode
      */
 
-      newNode.next = node.next;
-      node.next = newNode;
+     
 
   }
 
@@ -320,10 +278,7 @@ public class Toolbox {
         throw new IllegalArgumentException("Queue cannot be null and k cannot be negative.");
     }  
 
-    for (int i = 0; i < k; i++) {
-      int front = queue.poll();
-      queue.offer(front);
-    }
+    
     
   }
   /**
@@ -346,19 +301,6 @@ public class Toolbox {
     if (input == null) {
         throw new IllegalArgumentException("Input string cannot be null.");
     }
-    Stack<Character> stack = new Stack<>();
-
-    for (char c : input.toCharArray()) {
-      if(c == '(') {
-        stack.push(c);
-      } 
-      else if (c == ')') {
-        if (stack.isEmpty()) {
-          return false;
-        }
-        stack.pop();
-      }
-    }
-    return stack.isEmpty();
+    
   }
 }
