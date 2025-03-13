@@ -65,6 +65,15 @@ public class Toolbox {
     if (array == null || index < 0 || index >= array.length) {
         throw new IllegalArgumentException("Array cannot be null and index must be within bounds.");
     }
+    /*
+     for loop
+      we shift it -1, starting from the last value 
+     */
+
+    for(int i = array.length - 1; i > index; i--) {
+      array[i] = array[i - 1];
+    }
+    array[index] = value;
   }
 
   /**
@@ -79,7 +88,17 @@ public class Toolbox {
     if (head == null) {
         throw new IllegalArgumentException("Head cannot be null.");
     }
-}
+    /*
+     while loop
+      we traverse, starting from the head, and as long as head next node isn't null just continue til tail
+     return the head
+     */
+
+     while(head.next != null) {
+      head = head.next;
+     }
+     return head;
+  }
 
 
   /**
@@ -171,7 +190,7 @@ public class Toolbox {
     if (node == null) {
         throw new IllegalArgumentException("Node cannot be null.");
     }
-}
+  }
 
   /**
    * Finds the nth element in a singly linked list.
